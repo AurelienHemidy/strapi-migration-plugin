@@ -1,5 +1,5 @@
 {
-  "name": "strapi-migration-plugin",
+  "name": "strapi-plugin-migration",
   "version": "0.0.1",
   "description": "Strapi migration plugin for cms",
   "strapi": {
@@ -10,6 +10,7 @@
   },
   "scripts": {
     "develop": "tsc -p tsconfig.server.json -w",
+    "dev": "nodemon",
     "build": "tsc -p tsconfig.json",
     "prebuild": "yarn clean:build && tsc -p tsconfig.json && yarn setup-package",
     "setup-package": "zx ./setup-package.js",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^17.0.18",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
+    "nodemon": "^3.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.3.4",
