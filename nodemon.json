@@ -1,6 +1,6 @@
 {
   "watch": ["server", "admin", "scripts"],
-  "ext": "js,ts,json",
+  "ext": "js,ts,json,tsx",
   "ignore": ["**/*.test.js", "**/__tests__"],
   "exec": "yarn build"
 }
