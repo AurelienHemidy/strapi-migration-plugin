@@ -1,7 +1,7 @@
 import { Strapi } from '@strapi/strapi';
 
 export default ({ strapi }: { strapi: Strapi }) => ({
-  async find() {
+  async get() {
     const knex = strapi.db.connection;
     const [migrationConfig] = await knex('cms_migrations_config').where({
       id: 1,

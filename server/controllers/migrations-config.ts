@@ -1,12 +1,12 @@
 import { Strapi } from '@strapi/strapi';
 
 export default ({ strapi }: { strapi: Strapi }) => ({
-  async find(ctx) {
+  async get(ctx) {
     try {
       return await strapi
-        .plugin('migrations')
+        .plugin('strapi-plugin-migration')
         .service('migrationsConfig')
-        .find();
+        .get();
     } catch (err) {
       ctx.throw(500, err);
     }
@@ -14,7 +14,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   async toggleDryMode(ctx) {
     try {
       return await strapi
-        .plugin('migrations')
+        .plugin('strapi-plugin-migration')
         .service('migrationsConfig')
         .toggleDryMode();
     } catch (err) {
