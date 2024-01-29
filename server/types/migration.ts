@@ -8,6 +8,10 @@ export interface Migration {
    */
   status: 'success' | 'fail';
   /**
+   * Error message if the migration failed
+   */
+  error_stack?: Error['stack'] | null;
+  /**
    * Date when the migration was executed
    */
   migrated_at: Date | null;
