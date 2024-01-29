@@ -5,10 +5,11 @@ import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import PluginIcon from './components/PluginIcon';
 
-const name = pluginPkg.strapi.name;
+export const pluginName = pluginPkg.strapi.name;
 
 export default {
-  register(app: any) {
+  register(app: StrapiApp) {
+    console.log(app);
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
       icon: PluginIcon,
@@ -35,19 +36,19 @@ export default {
       id: pluginId,
       initializer: Initializer,
       isReady: false,
-      name,
+      pluginName,
     };
 
     app.registerPlugin(plugin);
   },
 
-  bootstrap(app: any) {},
+  bootstrap() {},
 
-  async registerTrads(app: any) {
+  async registerTrads(app: { locales: string[] }) {
     const { locales } = app;
 
     const importedTrads = await Promise.all(
-      (locales as any[]).map(locale => {
+      locales.map(locale => {
         return import(`./translations/${locale}.json`)
           .then(({ default: data }) => {
             return {
