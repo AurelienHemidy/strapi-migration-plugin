@@ -1,16 +1,28 @@
 import React from 'react';
-import { Box, Icon, EmptyStateLayout } from '@strapi/design-system';
+import { Box, Icon, EmptyStateLayout, Button } from '@strapi/design-system';
 
-import { Rocket } from '@strapi/icons';
+import { Rocket, Plus } from '@strapi/icons';
 
 export interface EmptyStateProps {
   /**
    * Text of the empty state
    */
   text: string;
+  /**
+   * Action function of the empty state button
+   */
+  actionFunction?: () => void;
+  /**
+   * Button text of the empty state
+   */
+  buttonText?: string;
 }
 
-export const EmptyState = ({ text }: EmptyStateProps) => {
+export const EmptyState = ({
+  text,
+  actionFunction,
+  buttonText,
+}: EmptyStateProps) => {
   return (
     <>
       <Box background="neutral100">
@@ -23,6 +35,17 @@ export const EmptyState = ({ text }: EmptyStateProps) => {
             />
           }
           content={text}
+          action={
+            actionFunction && (
+              <Button
+                variant="secondary"
+                startIcon={<Plus />}
+                onClick={() => actionFunction()}
+              >
+                {buttonText}
+              </Button>
+            )
+          }
         />
       </Box>
     </>
