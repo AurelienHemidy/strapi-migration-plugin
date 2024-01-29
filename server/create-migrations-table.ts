@@ -25,6 +25,16 @@ export async function setMigrationTable() {
         });
       }
     });
+
+  await knex.schema
+    .hasColumn('strapi_migrations', 'error_stack')
+    .then(async function (exists) {
+      if (!exists) {
+        await knex.schema.alterTable('strapi_migrations', table => {
+          table.text('error_stack');
+        });
+      }
+    });
 }
 
 /**

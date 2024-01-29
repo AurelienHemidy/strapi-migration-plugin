@@ -56,16 +56,17 @@ export async function runMigrations(): Promise<void> {
       if (error) {
         // Update the global status of the migrations
         await updateMigrationsGlobaStatus('fail');
-        throw new Error(error.message);
+        //throw new Error(error.message);
       }
 
       // Insert the migration file in database
-      if (!migrationConfig.active_dry_mode)
-        await knex<Migration>('strapi_migrations').insert({
-          name: migrationFileName,
-          status: error ? 'fail' : 'success',
-          migrated_at: new Date(),
-        });
+      if (!migrationConfig.active_dry_mode) console.log(error);
+      await knex<Migration>('strapi_migrations').insert({
+        name: migrationFileName,
+        status: error ? 'fail' : 'success',
+        error_stack: error ? error.stack : null,
+        migrated_at: new Date(),
+      });
     }
   }
 
