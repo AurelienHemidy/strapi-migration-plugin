@@ -1,5 +1,5 @@
 {
-  "name": "strapi-plugin-migration",
+  "name": "@aurelienhemidy/strapi-plugin-migration",
   "version": "0.0.1-beta.1",
   "description": "Strapi migration plugin for cms",
   "strapi": {
