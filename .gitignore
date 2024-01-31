@@ -114,3 +114,8 @@ dist
 build
 .strapi-updater.json
 package
+
+############################
+# NPM
+############################
+.npmrc
