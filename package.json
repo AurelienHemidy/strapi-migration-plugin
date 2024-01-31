@@ -8,6 +8,16 @@
     "description": "Strapi Plugin to handle data migrations.",
     "kind": "plugin"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AurelienHemidy/strapi-plugin-migration.git"
+  },
+  "homepage": "git+https://github.com/AurelienHemidy/strapi-plugin-migration.git#readme",
+  "keywords": [
+    "strapi",
+    "migration",
+    "data"
+  ],
   "scripts": {
     "develop": "tsc -p tsconfig.server.json -w",
     "dev": "nodemon",
