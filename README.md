@@ -17,13 +17,13 @@ If you want to use this plugin, you have to delete the native migrations inside 
 ## Installation
 
 ```
-npm install strapi-migration-plugin
+npm install @alsew_/strapi-migration-plugin
 ```
 
 or
 
 ```
-yarn add strapi-migration-plugin
+yarn add @alsew_/strapi-migration-plugin
 ```
 
 ## Workflow
@@ -55,31 +55,19 @@ It enables to keep track of the fields that have been migrated but not deleted y
 Deprecated-field interface
 
 {
-  "id": number,
+  "id": string,
   /**
    * Name of the deprecated-field
    */
   "name": string,
   /**
-   * CMS version when the field was deprecated
-   */
-  "deprecated_version": string,
-  /**
-   * CMS version when the field was deleted
-   */
-  "delete_version": string,
-  /**
-   * Type of the field
-   */
-  "type": "field" | "component" | "content-type",
-  /**
    * Content type of the field if it exists
    */
   "content_type": string | null,
   /**
-   * Component name of the field if it exists
+   * Visibility of the field in content-manager
    */
-  "component": string | null
+  "is_visible": boolean
 }
 ```
 
