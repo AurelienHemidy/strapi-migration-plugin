@@ -1,5 +1,5 @@
 import { Strapi } from '@strapi/strapi';
-import { runMigrations } from '../run-migrations';
+import { runMigrations } from '../runMigrations';
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   async get(offset: number = 0) {
