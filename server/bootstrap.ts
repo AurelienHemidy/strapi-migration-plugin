@@ -1,12 +1,13 @@
 import { Strapi } from '@strapi/strapi';
-import { runMigrations } from './run-migrations';
-import { checkMigrationStatus } from './migration-status';
+import { runMigrations } from './runMigrations';
 import {
   setMigrationTable,
   createMigrationsConfigTable,
-} from './create-migrations-table';
-import { createMigrationsFolderAndSubFolders } from './create-migrations-folders';
-import { isNativeStrapiMigrationsEnabled } from './native-strapi-migrations';
+} from './createMigrationTable';
+import { createMigrationsFolderAndSubFolders } from './createMigrationsFolders';
+import { isNativeStrapiMigrationsEnabled } from './nativeStrapiMigrations';
+import { checkForMigrationsToProcess } from './checkForMigrations';
+import { migrationsProcess } from './migrationProcess';
 
 export default async ({ strapi }: { strapi: Strapi }) => {
   // bootstrap phase
@@ -22,7 +23,11 @@ export default async ({ strapi }: { strapi: Strapi }) => {
   await setMigrationTable();
   await createMigrationsConfigTable();
 
-  const { isMigrationsPending } = await checkMigrationStatus();
+  const isMigrationsToProcess = await checkForMigrationsToProcess();
 
-  if (isMigrationsPending || isDevelopmentEnv) await runMigrations();
+  if (!isMigrationsToProcess) return;
+
+  const { canProcessMigrations } = await migrationsProcess();
+
+  if (canProcessMigrations || isDevelopmentEnv) await runMigrations();
 };
