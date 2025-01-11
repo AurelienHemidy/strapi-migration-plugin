@@ -7,7 +7,7 @@ interface UseMigrationsConfigAPIReturn {
 }
 
 export function useMigrationsConfigAPI(): UseMigrationsConfigAPIReturn {
-  const { get, patch } = useFetchClient();
+  const { get, put } = useFetchClient();
 
   const getAll = async () => {
     return await get(`/${pluginName}/migrations-config`, {
@@ -16,8 +16,8 @@ export function useMigrationsConfigAPI(): UseMigrationsConfigAPIReturn {
   };
 
   const toggleDryMode = async () => {
-    return await patch(`/${pluginName}/migrations-config/toggle-dry-mode`, {
-      method: 'PATCH',
+    return await put(`/${pluginName}/migrations-config/toggle-dry-mode`, {
+      method: 'PUT',
     });
   };
 

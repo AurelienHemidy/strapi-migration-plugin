@@ -57,17 +57,17 @@ export async function runMigrations(): Promise<void> {
       if (error) {
         // Update the global status of the migrations
         await updateMigrationsGlobalStatus('fail');
-        //throw new Error(error.message);
       }
 
       // Insert the migration file in database
-      if (!migrationConfig.active_dry_mode) console.log(error);
-      await knex<Migration>('strapi_migrations').insert({
-        name: migrationFileName,
-        status: error ? 'fail' : 'success',
-        error_stack: error ? error.stack : null,
-        migrated_at: new Date(),
-      });
+      if (!migrationConfig.active_dry_mode) {
+        await knex<Migration>('strapi_migrations').insert({
+          name: migrationFileName,
+          status: error ? 'fail' : 'success',
+          error_stack: error ? error.stack : null,
+          migrated_at: new Date(),
+        });
+      }
     }
   }
 
@@ -132,7 +132,9 @@ async function runFile(
       }
     });
   } catch (err) {
-    if (err instanceof Error) error = err;
+    if (err) {
+      error = err as Error;
+    }
     console.error('Migration file', err);
   } finally {
     return {

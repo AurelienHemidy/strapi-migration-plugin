@@ -23,11 +23,40 @@ import { EmptyState } from '../../helpers/empty-state';
 import { MigrationModal } from '../../helpers/modal';
 
 // Hooks
-import { useMigrations } from '../../../hooks/useMigrations';
 import { useMigrationErrorModal } from '../../../hooks/useMigrationErrorModal';
 import { ErrorBanner } from '../../helpers/error-banner';
 
-export const MigrationsTable = () => {
+export interface MigrationsTableProps {
+  /**
+   * The migrations
+   */
+  migrations: Migration[];
+  /**
+   * Whether the migrations are loading
+   */
+  isLoading: boolean;
+  /**
+   * Delete a migration
+   * @param id
+   */
+  deleteMigration: (id: number) => Promise<void>;
+  /**
+   * Fetch migrations
+   */
+  fetchMigrations: () => Promise<void>;
+  /**
+   * Whether a migration error occured
+   */
+  error: Error | null;
+}
+
+export const MigrationsTable = ({
+  migrations,
+  isLoading,
+  error,
+  deleteMigration,
+  fetchMigrations,
+}: MigrationsTableProps) => {
   const tableColumnName = [
     'ID',
     'File Name',
@@ -36,14 +65,18 @@ export const MigrationsTable = () => {
     'Actions',
   ];
 
-  const { migrations, isLoading, error, deleteMigration } = useMigrations();
-
   const {
     currentError,
     isErrorModalVisible,
     setIsErrorModalVisible,
     seeErrorModal,
   } = useMigrationErrorModal();
+
+  async function _deleteMigration(id: number): Promise<void> {
+    await deleteMigration(id);
+
+    await fetchMigrations();
+  }
 
   if (isLoading) return <MigrationsLoader text="Getting migrations..." />;
 
@@ -113,7 +146,7 @@ export const MigrationsTable = () => {
                       icon={<Play />}
                     /> */}
                     <IconButton
-                      onClick={() => deleteMigration(migration.id)}
+                      onClick={() => _deleteMigration(migration.id)}
                       label="Delete the migration in db"
                       icon={<Trash />}
                     />
