@@ -1,35 +1,42 @@
 {
   "name": "@alsew_/strapi-plugin-migration",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.2",
   "description": "Strapi migration plugin for cms",
-  "strapi": {
-    "name": "strapi-plugin-migration",
-    "displayName": "Migrations",
-    "description": "Strapi Plugin to handle data migrations.",
-    "kind": "plugin"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AurelienHemidy/strapi-plugin-migration.git"
-  },
-  "homepage": "git+https://github.com/AurelienHemidy/strapi-plugin-migration.git#readme",
   "keywords": [
     "strapi",
     "migration",
     "data"
   ],
+  "homepage": "git+https://github.com/AurelienHemidy/strapi-plugin-migration.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AurelienHemidy/strapi-plugin-migration.git"
+  },
+  "license": "ISC",
+  "author": "Aurélien Hémidy",
+  "maintainers": [
+    {
+      "name": "Aurélien Hémidy"
+    }
+  ],
+  "bin": {
+    "create-migration-file": "./scripts/create-migration-file.mjs"
+  },
   "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "dev": "nodemon",
-    "build": "tsc -p tsconfig.json",
     "prebuild": "yarn clean:build && tsc -p tsconfig.json && yarn setup-package",
-    "setup-package": "zx ./setup-package.js",
+    "build": "tsc -p tsconfig.json",
+    "clean:build": "rm -rf dist",
+    "clean:test-package": "cd package && rm -rf test-package.tgz package",
+    "dev": "nodemon",
+    "develop": "tsc -p tsconfig.server.json -w",
+    "lint": "eslint .",
     "release": "cd dist/ && npm-release",
     "release:beta": "cd dist/ && npm-release --tag beta",
-    "test:package": "yarn clean:test-package && cd dist/ && yarn pack --filename ../package/test-package.tgz && cd ../package && tar -xf test-package.tgz",
-    "clean:test-package": "cd package && rm -rf test-package.tgz package",
-    "clean:build": "rm -rf dist",
-    "lint": "eslint ."
+    "setup-package": "zx ./setup-package.js",
+    "test:package": "yarn clean:test-package && cd dist/ && yarn pack --filename ../package/test-package.tgz && cd ../package && tar -xf test-package.tgz"
+  },
+  "resolutions": {
+    "codemirror": "5.65.12"
   },
   "dependencies": {
     "@strapi/design-system": "^1.6.3",
@@ -40,9 +47,6 @@
     "prop-types": "^15.7.2",
     "uuid": "^9.0.1",
     "xss": "^1.0.14"
-  },
-  "resolutions": {
-    "codemirror": "5.65.12"
   },
   "devDependencies": {
     "@fifteen/tooling": "^0.1.0",
@@ -72,19 +76,15 @@
     "react-router-dom": "^5.3.4",
     "styled-components": "^5.3.6"
   },
-  "author": "Aurélien Hémidy",
-  "license": "ISC",
-  "maintainers": [
-    {
-      "name": "Aurélien Hémidy"
-    }
-  ],
+  "packageManager": "yarn@3.6.3",
   "engines": {
     "node": "18",
     "npm": ">=6.0.0"
   },
-  "bin": {
-    "create-migration-file": "./scripts/create-migration-file.mjs"
-  },
-  "packageManager": "yarn@3.6.3"
+  "strapi": {
+    "name": "strapi-plugin-migration",
+    "displayName": "Migrations",
+    "description": "Strapi Plugin to handle data migrations.",
+    "kind": "plugin"
+  }
 }
