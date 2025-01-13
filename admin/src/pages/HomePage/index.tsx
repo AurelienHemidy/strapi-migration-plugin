@@ -23,9 +23,11 @@ import { useMigrations } from '../../hooks/useMigrations';
 const HomePage = () => {
   const {
     migrations,
+    isLoading: isMigrationsLoading,
     error: migrationsError,
     fetchMigrations,
     runMigrations,
+    deleteMigration,
     migrationsSucceeded,
     migrationsFailed,
   } = useMigrations();
@@ -90,7 +92,13 @@ const HomePage = () => {
           </Box>
         </Box>
 
-        <MigrationsTable />
+        <MigrationsTable
+          migrations={migrations}
+          isLoading={isMigrationsLoading}
+          error={migrationsError}
+          fetchMigrations={fetchMigrations}
+          deleteMigration={deleteMigration}
+        />
 
         <DeprecatedFields />
       </ContentLayout>

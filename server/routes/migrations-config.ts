@@ -11,7 +11,7 @@ export default {
       },
     },
     {
-      method: 'PATCH',
+      method: 'PUT',
       path: '/migrations-config/toggle-dry-mode',
       handler: 'migrationsConfig.toggleDryMode',
       config: {
