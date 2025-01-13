@@ -1,5 +1,6 @@
+import { updateMigrationsGlobalStatus } from './migrationProcess';
 import { Migration } from './types/migration';
-import { MigrationRunReturn } from './types/migration-run-return';
+import { MigrationRunReturn } from './types/migrationRunReturn';
 import * as ts from 'typescript';
 
 const fs = require('fs');
@@ -55,7 +56,7 @@ export async function runMigrations(): Promise<void> {
 
       if (error) {
         // Update the global status of the migrations
-        await updateMigrationsGlobaStatus('fail');
+        await updateMigrationsGlobalStatus('fail');
         //throw new Error(error.message);
       }
 
@@ -71,21 +72,9 @@ export async function runMigrations(): Promise<void> {
   }
 
   // Update the global status of the migrations
-  await updateMigrationsGlobaStatus('completed');
+  await updateMigrationsGlobalStatus('completed');
 
   return console.log(`*  migrations done *\n`);
-}
-
-async function updateMigrationsGlobaStatus(
-  status: 'pending' | 'processing' | 'completed' | 'fail'
-) {
-  const knex = strapi.db.connection;
-
-  await knex('cms_migrations_config')
-    .update({
-      status: status,
-    })
-    .where({ id: 1 });
 }
 
 /**

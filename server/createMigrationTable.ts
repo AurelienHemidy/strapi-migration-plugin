@@ -65,6 +65,7 @@ export async function createMigrationsConfigTable() {
         // Set active_dry_mode default value to "true"
         return knex('cms_migrations_config').insert({
           active_dry_mode: isDevelopmentEnv ? true : false,
+          status: 'not_started',
         });
       }
     });
